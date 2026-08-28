@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L² Tutoring — Private tutoring, GCSE to entrance exams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1E2B24;
+    --bg-alt:#17201B;
+    --card:#25352C;
+    --paper:#F3EEE2;
+    --paper-dim:#C9CBBE;
+    --ink:#1E2B24;
+    --gold:#C9A227;
+    --gold-dim:#8A7220;
+    --sage:#8FAE9B;
+    --rule:rgba(243,238,226,0.14);
+    --rule-strong:rgba(243,238,226,0.28);
+    --radius:4px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'Public Sans',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;margin:0;letter-spacing:-0.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 14px;
+  }
+  section{padding:88px 0;}
+  .rule-top{border-top:1px solid var(--rule);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 24px;
+    border-radius:var(--radius);
+    font-family:'Public Sans',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .btn-primary{background:var(--gold);color:var(--ink);}
+  .btn-primary:hover{background:#DDB640;transform:translateY(-1px);}
+  .btn-outline{border-color:var(--rule-strong);color:var(--paper);}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(30,43,36,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;max-width:var(--maxw);margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces',serif;font-weight:600;font-size:20px;
+    display:flex;align-items:center;gap:9px;
+  }
+  .logo-mark{width:20px;height:20px;flex:none;}
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--paper-dim);
+    position:relative;padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--gold);transition:width .2s ease;
+  }
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;gap:12px;align-items:center;}
+  .nav-toggle{display:none;background:none;border:none;color:var(--paper);font-size:22px;cursor:pointer;}
+  .lang-toggle{
+    background:none;border:1px solid var(--rule-strong);color:var(--paper);
+    padding:8px 14px;border-radius:999px;font-size:13px;cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;transition:border-color .15s ease, color .15s ease;
+  }
+  .lang-toggle:hover,.lang-toggle:focus-visible{border-color:var(--gold);color:var(--gold);outline:none;}
+
+  @media (max-width:800px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--bg);flex-direction:column;gap:0;
+      border-bottom:1px solid var(--rule);
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+    }
+    .nav-links.open{max-height:320px;}
+    .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--rule);}
+    .nav-toggle{display:block;}
+    .nav-cta .btn-outline{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 72px;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  .hero h1{
+    font-size:clamp(36px,5vw,58px);
+    line-height:1.08;
+    max-width:14ch;
+  }
+  .hero .stroke-word{position:relative;display:inline-block;color:var(--gold);}
+  .hero .stroke-word svg{
+    position:absolute;left:0;bottom:-6px;width:100%;height:14px;
+  }
+  .hero .stroke-word path{
+    stroke:var(--gold);stroke-width:3;fill:none;stroke-linecap:round;
+    stroke-dasharray:220;stroke-dashoffset:220;
+    animation:draw 1.1s .5s ease forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .hero p.lead{
+    margin:22px 0 30px;font-size:18px;color:var(--paper-dim);max-width:38ch;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+  .trust-line{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;
+    color:var(--paper-dim);border-top:1px solid var(--rule);padding-top:16px;
+  }
+  .hero-panel{
+    background:var(--card);border:1px solid var(--rule);border-radius:8px;
+    padding:28px;
+  }
+  .hero-panel .eyebrow{margin-bottom:18px;}
+  .step-mini{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--rule);font-size:14px;}
+  .step-mini:first-of-type{border-top:none;}
+  .step-mini .num{
+    font-family:'IBM Plex Mono',monospace;color:var(--gold);flex:none;width:22px;
+  }
+
+  @media (max-width:800px){
+    .hero-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SERVICES ---------- */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 46px;}
+  .chip{
+    font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;
+    border:1px solid var(--rule-strong);color:var(--paper-dim);
+  }
+  .subject-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--rule);border:1px solid var(--rule);
+  }
+  .subject-card{
+    background:var(--bg);padding:26px 24px;display:flex;gap:14px;
+  }
+  .tick{flex:none;width:22px;height:22px;margin-top:2px;}
+  .subject-card h3{font-size:17px;font-weight:600;margin-bottom:6px;}
+  .subject-card p{margin:0;font-size:14px;color:var(--paper-dim);}
+  @media (max-width:800px){.subject-grid{grid-template-columns:1fr;}}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:40px;}
+  .step{border-top:2px solid var(--gold);padding-top:18px;}
+  .step .num{
+    font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:13px;
+    display:block;margin-bottom:10px;
+  }
+  .step h3{font-size:18px;margin-bottom:8px;}
+  .step p{margin:0;color:var(--paper-dim);font-size:14px;}
+  @media (max-width:800px){.steps{grid-template-columns:1fr;gap:32px;}}
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+  .price-card{
+    background:var(--card);border:1px solid var(--rule);border-radius:8px;
+    padding:30px 26px;display:flex;flex-direction:column;
+  }
+  .price-card.featured{border-color:var(--gold);}
+  .price-card h3{font-size:19px;margin-bottom:6px;}
+  .price-from{
+    font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:22px;margin:14px 0 18px;
+  }
+  .price-from span{font-size:12px;color:var(--paper-dim);display:block;margin-top:4px;font-family:'Public Sans',sans-serif;}
+  .price-card ul{list-style:none;padding:0;margin:0 0 24px;flex:1;}
+  .price-card li{
+    font-size:14px;color:var(--paper-dim);padding:8px 0;border-top:1px solid var(--rule);
+  }
+  .price-card li:first-child{border-top:none;}
+  .price-note{margin-top:28px;font-size:13px;color:var(--paper-dim);}
+  @media (max-width:800px){.price-grid{grid-template-columns:1fr;}}
+
+  /* ---------- TEACHERS ---------- */
+  .teacher-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .teacher-card{text-align:left;}
+  .avatar{
+    width:56px;height:56px;border-radius:50%;
+    background:var(--sage);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;
+    margin-bottom:16px;
+  }
+  .teacher-card h3{font-size:17px;margin-bottom:4px;}
+  .teacher-card .role{color:var(--gold);font-size:13px;font-family:'IBM Plex Mono',monospace;margin-bottom:10px;}
+  .teacher-card p{margin:0;font-size:14px;color:var(--paper-dim);}
+  @media (max-width:800px){.teacher-grid{grid-template-columns:1fr;}}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;}
+  .quote-card{
+    background:var(--bg-alt);border-left:2px solid var(--gold);
+    padding:24px 28px;
+  }
+  .quote-card p{font-size:17px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;margin:0 0 14px;line-height:1.5;}
+  .quote-card .attr{font-size:13px;color:var(--paper-dim);font-family:'IBM Plex Mono',monospace;}
+  @media (max-width:800px){.quote-grid{grid-template-columns:1fr;}}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:36px;}
+  form{display:flex;flex-direction:column;gap:16px;}
+  label{font-size:13px;color:var(--paper-dim);margin-bottom:6px;display:block;}
+  input,select,textarea{
+    width:100%;padding:12px 14px;background:var(--card);
+    border:1px solid var(--rule-strong);border-radius:4px;color:var(--paper);
+    font-family:'Public Sans',sans-serif;font-size:15px;
+  }
+  input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}
+  textarea{resize:vertical;min-height:100px;}
+  .contact-side{border-left:1px solid var(--rule);padding-left:56px;}
+  .contact-side h3{font-size:18px;margin-bottom:12px;}
+  .contact-side p{color:var(--paper-dim);font-size:14px;margin:0 0 22px;}
+  .contact-side .btn{width:100%;justify-content:center;margin-bottom:12px;}
+  @media (max-width:800px){
+    .contact-grid{grid-template-columns:1fr;}
+    .contact-side{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:32px;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--rule);padding:44px 0;}
+  .footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-links{display:flex;gap:24px;font-size:14px;color:var(--paper-dim);}
+  .fine-print{font-size:12px;color:var(--paper-dim);margin-top:24px;opacity:0.7;}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .hero .stroke-word path{animation:none;stroke-dashoffset:0;}
+  }
+
+  h2.section-title{font-size:clamp(26px,3vw,34px);max-width:20ch;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="#top">
+      <svg class="logo-mark" viewBox="0 0 24 24" fill="none">
+        <path d="M4 20c0-8 6-15 15-16-2 8-7 14-15 16Z" stroke="#C9A227" stroke-width="1.6"/>
+      </svg>
+      L² Tutoring
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#services" data-i18n="nav-services">Services</a>
+      <a href="#how" data-i18n="nav-how">How it works</a>
+      <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
+      <a href="#teachers" data-i18n="nav-teachers">Teachers</a>
+      <a href="#reviews" data-i18n="nav-reviews">Reviews</a>
+      <a href="#contact" data-i18n="nav-contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <button class="lang-toggle" id="langToggle" type="button">中文</button>
+      <a class="btn btn-outline" data-i18n="nav-whatsapp" href="https://wa.me/447858144607" target="_blank" rel="noopener">WhatsApp us</a>
+      <a class="btn btn-primary" data-i18n="nav-book" href="#contact">Book a consultation</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow" data-i18n="hero-eyebrow">Private tutoring · UK curriculum</p>
+        <h1><span data-i18n="hero-h1-pre">Teaching that's</span> <span class="stroke-word"><span class="word-text" data-i18n="hero-h1-word">marked</span><svg viewBox="0 0 160 14" preserveAspectRatio="none"><path d="M2 9 C 40 13, 120 13, 158 5"/></svg></span><span data-i18n="hero-h1-post">, not guessed.</span></h1>
+        <p class="lead" data-i18n="hero-lead">One-to-one tutoring from Primary through A-Level, entrance exams, and personal statements — with clear updates sent straight to parents.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" data-i18n="hero-cta-book" href="#contact">Book a free consultation</a>
+          <a class="btn btn-outline" data-i18n="hero-cta-whatsapp" href="https://wa.me/447858144607" target="_blank" rel="noopener">Message us on WhatsApp</a>
+        </div>
+        <p class="trust-line">GCSE&nbsp;&nbsp;·&nbsp;&nbsp;A-LEVEL&nbsp;&nbsp;·&nbsp;&nbsp;11+ / 12+&nbsp;&nbsp;·&nbsp;&nbsp;IELTS&nbsp;&nbsp;·&nbsp;&nbsp;TMUA&nbsp;&nbsp;·&nbsp;&nbsp;STEP&nbsp;&nbsp;·&nbsp;&nbsp;MAT</p>
+      </div>
+      <div class="hero-panel">
+        <p class="eyebrow" data-i18n="hero-panel-eyebrow">What happens next</p>
+        <div class="step-mini"><span class="num">01</span><span data-i18n="step-mini-1">Tell us the year group and subject</span></div>
+        <div class="step-mini"><span class="num">02</span><span data-i18n="step-mini-2">A short consultation call, no obligation</span></div>
+        <div class="step-mini"><span class="num">03</span><span data-i18n="step-mini-3">We match a tutor within 48 hours</span></div>
+        <div class="step-mini"><span class="num">04</span><span data-i18n="step-mini-4">Weekly updates via WhatsApp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="rule-top">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="services-eyebrow">Services</p>
+      <h2 class="section-title" data-i18n="services-title">Every stage, the subjects that matter most</h2>
+
+      <div class="chip-row">
+        <span class="chip" data-i18n="chip-primary">Primary</span>
+        <span class="chip" data-i18n="chip-secondary">Secondary</span>
+        <span class="chip">GCSE</span>
+        <span class="chip">A-Level</span>
+      </div>
+
+      <div class="subject-grid">
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-maths-h">Maths &amp; Further Maths</h3><p data-i18n="svc-maths-p">From times tables to mechanics and pure maths at A-Level.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-sci-h">Sciences</h3><p data-i18n="svc-sci-p">Biology, chemistry, and physics across GCSE and A-Level boards.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-eng-h">English</h3><p data-i18n="svc-eng-p">Comprehension, essay technique, and literature analysis.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-chi-h">Chinese</h3><p data-i18n="svc-chi-p">Mandarin for native and second-language learners, all levels.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-biz-h">Business &amp; Accounting</h3><p data-i18n="svc-biz-p">Business studies and accounting &amp; finance, GCSE through A-Level.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-ent-h">Entrance Exams</h3><p data-i18n="svc-ent-p">11+, 12+, and IELTS preparation with mock papers and feedback.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-uni-h">University Admissions</h3><p data-i18n="svc-uni-p">TMUA, STEP, and MAT preparation, plus personal statement coaching.</p></div>
+        </div>
+        <div class="subject-card">
+          <svg class="tick" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#C9A227" stroke-width="1.4"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3 data-i18n="svc-mod-h">Modules &amp; Consultations</h3><p data-i18n="svc-mod-p">Short, focused modules for one-off revision or a single skill.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="rule-top">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="how-eyebrow">How it works</p>
+      <h2 class="section-title" data-i18n="how-title">From first message to first lesson</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="num">01</span>
+          <h3 data-i18n="how1-h">Tell us what's needed</h3>
+          <p data-i18n="how1-p">Share your child's year group, subject, and goals in a two-minute form.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h3 data-i18n="how2-h">Have a consultation</h3>
+          <p data-i18n="how2-p">We talk through strengths, gaps, and timelines before matching a tutor.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h3 data-i18n="how3-h">Meet your tutor</h3>
+          <p data-i18n="how3-p">A specialist in the right subject and exam board, introduced within 48 hours.</p>
+        </div>
+        <div class="step">
+          <span class="num">04</span>
+          <h3 data-i18n="how4-h">Stay in the loop</h3>
+          <p data-i18n="how4-p">A shared WhatsApp group keeps parents, students, and tutors in sync every week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="rule-top">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="pricing-eyebrow">Pricing</p>
+      <h2 class="section-title" data-i18n="pricing-title">Simple tiers, tailored to the subject</h2>
+      <div class="price-grid">
+        <div class="price-card">
+          <h3 data-i18n="price1-h">Primary &amp; Secondary</h3>
+          <div class="price-from">From £30<span data-i18n="per-hour">per hour</span></div>
+          <ul>
+            <li data-i18n="price1-li1">All core subjects</li>
+            <li data-i18n="price1-li2">Flexible weekly scheduling</li>
+            <li data-i18n="price1-li3">Progress notes after each session</li>
+          </ul>
+          <a class="btn btn-outline" data-i18n="get-quote" href="#contact">Get a quote</a>
+        </div>
+        <div class="price-card featured">
+          <h3>GCSE</h3>
+          <div class="price-from">From £40<span data-i18n="per-hour">per hour</span></div>
+          <ul>
+            <li data-i18n="price2-li1">Exam board–matched materials</li>
+            <li data-i18n="price2-li2">Mock papers with written feedback</li>
+            <li data-i18n="price2-li3">Monthly parent check-in call</li>
+          </ul>
+          <a class="btn btn-primary" data-i18n="get-quote" href="#contact">Get a quote</a>
+        </div>
+        <div class="price-card">
+          <h3 data-i18n="price3-h">A-Level &amp; Entrance Exams</h3>
+          <div class="price-from">From £55<span data-i18n="per-hour">per hour</span></div>
+          <ul>
+            <li>TMUA, STEP, MAT, and IELTS</li>
+            <li data-i18n="price3-li2">Personal statement coaching</li>
+            <li data-i18n="price3-li3">Specialist subject tutors</li>
+          </ul>
+          <a class="btn btn-outline" data-i18n="get-quote" href="#contact">Get a quote</a>
+        </div>
+      </div>
+      <p class="price-note" data-i18n="price-note">Exact pricing depends on subject, exam board, and tutor experience — book a consultation for a tailored quote.</p>
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section id="teachers" class="rule-top">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="teachers-eyebrow">Teachers</p>
+      <h2 class="section-title" data-i18n="teachers-title">A small panel of specialists, not a marketplace</h2>
+      <div class="teacher-grid">
+        <div class="teacher-card">
+          <div class="avatar">JL</div>
+          <h3 data-i18n="tutor-name">Tutor name</h3>
+          <p class="role" data-i18n="svc-maths-h">Maths &amp; Further Maths</p>
+          <p data-i18n="teacher1-p">Placeholder credential — e.g. "Ten years teaching A-Level maths, Edexcel and AQA."</p>
+        </div>
+        <div class="teacher-card">
+          <div class="avatar">SW</div>
+          <h3 data-i18n="tutor-name">Tutor name</h3>
+          <p class="role" data-i18n="svc-sci-h">Sciences</p>
+          <p data-i18n="teacher2-p">Placeholder credential — e.g. "Former secondary school science teacher, GCSE examiner."</p>
+        </div>
+        <div class="teacher-card">
+          <div class="avatar">MC</div>
+          <h3 data-i18n="tutor-name">Tutor name</h3>
+          <p class="role" data-i18n="teacher3-role">Admissions &amp; Personal Statements</p>
+          <p data-i18n="teacher3-p">Placeholder credential — e.g. "Oxbridge graduate, specialises in TMUA and personal statements."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="reviews" class="rule-top">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="reviews-eyebrow">Reviews</p>
+      <h2 class="section-title" data-i18n="reviews-title">What parents say — sample quotes, replace with real reviews</h2>
+      <div class="quote-grid">
+        <div class="quote-card">
+          <p data-i18n="quote1">"We finally get a message after every lesson telling us exactly what was covered. No more guessing how it went."</p>
+          <p class="attr" data-i18n="quote1-attr">— Parent, Year 11 student</p>
+        </div>
+        <div class="quote-card">
+          <p data-i18n="quote2">"The tutor matched to my daughter's exam board within two days, and the mock feedback was more detailed than school's."</p>
+          <p class="attr" data-i18n="quote2-attr">— Parent, A-Level student</p>
+        </div>
+        <div class="quote-card">
+          <p data-i18n="quote3">"Our son's confidence with maths turned around within a term. Sessions were structured and the tutor always had a plan for the week ahead."</p>
+          <p class="attr" data-i18n="quote3-attr">— Parent, GCSE student</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="rule-top">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow" data-i18n="contact-eyebrow">Contact</p>
+        <h2 class="section-title" data-i18n="contact-title">Book a free consultation</h2>
+        <form action="https://formsubmit.co/lsquared.tutors@gmail.com" method="POST" style="margin-top:24px;">
+          <input type="hidden" name="_subject" value="New consultation request — L² Tutoring">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <div>
+            <label for="parentName" data-i18n="label-parent">Parent name</label>
+            <input id="parentName" name="Parent name" type="text" required>
+          </div>
+          <div>
+            <label for="childYear" data-i18n="label-year">Child's year group</label>
+            <select id="childYear" name="Year group">
+              <option data-i18n="chip-primary">Primary</option>
+              <option data-i18n="chip-secondary">Secondary</option>
+              <option>GCSE</option>
+              <option>A-Level</option>
+              <option data-i18n="option-entrance">Entrance exam / admissions</option>
+            </select>
+          </div>
+          <div>
+            <label for="subject" data-i18n="label-subject">Subject</label>
+            <input id="subject" name="Subject" type="text" data-i18n-placeholder="placeholder-subject" placeholder="e.g. Maths, Chemistry, IELTS">
+          </div>
+          <div>
+            <label for="message" data-i18n="label-message">Anything else we should know?</label>
+            <textarea id="message" name="Message" data-i18n-placeholder="placeholder-message" placeholder="Goals, timeline, exam board..."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top:6px;" data-i18n="submit-btn">Request a consultation</button>
+        </form>
+      </div>
+      <div class="contact-side">
+        <h3 data-i18n="contact-side-h">Prefer to message directly?</h3>
+        <p data-i18n="contact-side-p">We reply within 24 hours. WhatsApp is usually fastest.</p>
+        <a class="btn btn-primary" data-i18n="nav-whatsapp" href="https://wa.me/447858144607" target="_blank" rel="noopener">WhatsApp us</a>
+        <a class="btn btn-outline" data-i18n="email-btn" href="mailto:lsquared.tutors@gmail.com">Email lsquared.tutors@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="#top">
+        <svg class="logo-mark" viewBox="0 0 24 24" fill="none">
+          <path d="M4 20c0-8 6-15 15-16-2 8-7 14-15 16Z" stroke="#C9A227" stroke-width="1.6"/>
+        </svg>
+        L² Tutoring
+      </a>
+      <div class="footer-links">
+        <a href="#services" data-i18n="nav-services">Services</a>
+        <a href="#how" data-i18n="nav-how">How it works</a>
+        <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
+        <a href="#contact" data-i18n="nav-contact">Contact</a>
+      </div>
+    </div>
+    <p class="fine-print" data-i18n="fine-print">© 2026 L² Tutoring. Draft site — placeholder name, pricing, and content. Replace before launch.</p>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  const translations = {
+    en: {
+      'nav-services':'Services','nav-how':'How it works','nav-pricing':'Pricing','nav-teachers':'Teachers',
+      'nav-reviews':'Reviews','nav-contact':'Contact','nav-whatsapp':'WhatsApp us','nav-book':'Book a consultation',
+      'hero-eyebrow':'Private tutoring · UK curriculum','hero-h1-pre':"Teaching that's",'hero-h1-word':'marked',
+      'hero-h1-post':', not guessed.',
+      'hero-lead':'One-to-one tutoring from Primary through A-Level, entrance exams, and personal statements — with clear updates sent straight to parents.',
+      'hero-cta-book':'Book a free consultation','hero-cta-whatsapp':'Message us on WhatsApp',
+      'hero-panel-eyebrow':'What happens next',
+      'step-mini-1':'Tell us the year group and subject','step-mini-2':'A short consultation call, no obligation',
+      'step-mini-3':'We match a tutor within 48 hours','step-mini-4':'Weekly updates via WhatsApp',
+      'services-eyebrow':'Services','services-title':'Every stage, the subjects that matter most',
+      'chip-primary':'Primary','chip-secondary':'Secondary',
+      'svc-maths-h':'Maths & Further Maths','svc-maths-p':'From times tables to mechanics and pure maths at A-Level.',
+      'svc-sci-h':'Sciences','svc-sci-p':'Biology, chemistry, and physics across GCSE and A-Level boards.',
+      'svc-eng-h':'English','svc-eng-p':'Comprehension, essay technique, and literature analysis.',
+      'svc-chi-h':'Chinese','svc-chi-p':'Mandarin for native and second-language learners, all levels.',
+      'svc-biz-h':'Business & Accounting','svc-biz-p':'Business studies and accounting & finance, GCSE through A-Level.',
+      'svc-ent-h':'Entrance Exams','svc-ent-p':'11+, 12+, and IELTS preparation with mock papers and feedback.',
+      'svc-uni-h':'University Admissions','svc-uni-p':'TMUA, STEP, and MAT preparation, plus personal statement coaching.',
+      'svc-mod-h':'Modules & Consultations','svc-mod-p':'Short, focused modules for one-off revision or a single skill.',
+      'how-eyebrow':'How it works','how-title':'From first message to first lesson',
+      'how1-h':"Tell us what's needed",'how1-p':"Share your child's year group, subject, and goals in a two-minute form.",
+      'how2-h':'Have a consultation','how2-p':'We talk through strengths, gaps, and timelines before matching a tutor.',
+      'how3-h':'Meet your tutor','how3-p':'A specialist in the right subject and exam board, introduced within 48 hours.',
+      'how4-h':'Stay in the loop','how4-p':'A shared WhatsApp group keeps parents, students, and tutors in sync every week.',
+      'pricing-eyebrow':'Pricing','pricing-title':'Simple tiers, tailored to the subject',
+      'price1-h':'Primary & Secondary','per-hour':'per hour',
+      'price1-li1':'All core subjects','price1-li2':'Flexible weekly scheduling','price1-li3':'Progress notes after each session',
+      'get-quote':'Get a quote',
+      'price2-li1':'Exam board–matched materials','price2-li2':'Mock papers with written feedback','price2-li3':'Monthly parent check-in call',
+      'price3-h':'A-Level & Entrance Exams','price3-li2':'Personal statement coaching','price3-li3':'Specialist subject tutors',
+      'price-note':'Exact pricing depends on subject, exam board, and tutor experience — book a consultation for a tailored quote.',
+      'teachers-eyebrow':'Teachers','teachers-title':'A small panel of specialists, not a marketplace',
+      'tutor-name':'Tutor name',
+      'teacher1-p':'Placeholder credential — e.g. "Ten years teaching A-Level maths, Edexcel and AQA."',
+      'teacher2-p':'Placeholder credential — e.g. "Former secondary school science teacher, GCSE examiner."',
+      'teacher3-role':'Admissions & Personal Statements',
+      'teacher3-p':'Placeholder credential — e.g. "Oxbridge graduate, specialises in TMUA and personal statements."',
+      'reviews-eyebrow':'Reviews','reviews-title':'What parents say — sample quotes, replace with real reviews',
+      'quote1':'"We finally get a message after every lesson telling us exactly what was covered. No more guessing how it went."',
+      'quote1-attr':'— Parent, Year 11 student',
+      'quote2':'"The tutor matched to my daughter\'s exam board within two days, and the mock feedback was more detailed than school\'s."',
+      'quote2-attr':'— Parent, A-Level student',
+      'quote3':'"Our son\'s confidence with maths turned around within a term. Sessions were structured and the tutor always had a plan for the week ahead."',
+      'quote3-attr':'— Parent, GCSE student',
+      'contact-eyebrow':'Contact','contact-title':'Book a free consultation',
+      'label-parent':'Parent name','label-year':"Child's year group",'option-entrance':'Entrance exam / admissions',
+      'label-subject':'Subject','placeholder-subject':'e.g. Maths, Chemistry, IELTS',
+      'label-message':'Anything else we should know?','placeholder-message':'Goals, timeline, exam board...',
+      'submit-btn':'Request a consultation',
+      'contact-side-h':'Prefer to message directly?','contact-side-p':'We reply within 24 hours. WhatsApp is usually fastest.',
+      'email-btn':'Email lsquared.tutors@gmail.com',
+      'fine-print':'© 2026 L² Tutoring. Draft site — placeholder name, pricing, and content. Replace before launch.'
+    },
+    zh: {
+      'nav-services':'课程','nav-how':'流程','nav-pricing':'价格','nav-teachers':'导师',
+      'nav-reviews':'评价','nav-contact':'联系我们','nav-whatsapp':'WhatsApp咨询','nav-book':'预约咨询',
+      'hero-eyebrow':'私人辅导 · 英国课程体系','hero-h1-pre':'教学','hero-h1-word':'有据可查',
+      'hero-h1-post':'，而非凭空猜测。',
+      'hero-lead':'一对一辅导，涵盖小学到 A-Level、入学考试及个人陈述——每节课后清晰同步给家长。',
+      'hero-cta-book':'预约免费咨询','hero-cta-whatsapp':'通过WhatsApp联系我们',
+      'hero-panel-eyebrow':'接下来会发生什么',
+      'step-mini-1':'告诉我们孩子的年级和科目','step-mini-2':'简短咨询电话，无需承诺',
+      'step-mini-3':'48小时内为您匹配导师','step-mini-4':'每周通过WhatsApp更新进度',
+      'services-eyebrow':'课程','services-title':'覆盖各个阶段，聚焦重点科目',
+      'chip-primary':'小学','chip-secondary':'中学',
+      'svc-maths-h':'数学与高阶数学','svc-maths-p':'从基础乘法表到 A-Level 力学与纯数学，全面覆盖。',
+      'svc-sci-h':'理科','svc-sci-p':'覆盖 GCSE 与 A-Level 各大考试局的生物、化学与物理。',
+      'svc-eng-h':'英语','svc-eng-p':'阅读理解、写作技巧与文学分析。',
+      'svc-chi-h':'中文','svc-chi-p':'面向母语及非母语学习者的普通话课程，各级别均可。',
+      'svc-biz-h':'商科与会计','svc-biz-p':'商业研究及会计与金融，覆盖 GCSE 至 A-Level。',
+      'svc-ent-h':'入学考试','svc-ent-p':'11+、12+ 及雅思备考，提供模拟试卷与详细反馈。',
+      'svc-uni-h':'大学申请','svc-uni-p':'TMUA、STEP、MAT 备考，以及个人陈述辅导。',
+      'svc-mod-h':'单项课程与咨询','svc-mod-p':'短期专项课程，适合单次复习或单一技能提升。',
+      'how-eyebrow':'流程','how-title':'从第一次联系到第一堂课',
+      'how1-h':'告诉我们您的需求','how1-p':'花两分钟填写表格，告诉我们孩子的年级、科目和目标。',
+      'how2-h':'进行咨询','how2-p':'在匹配导师前，我们会与您沟通孩子的优势、待提升之处及时间安排。',
+      'how3-h':'认识您的导师','how3-p':'48小时内为您介绍匹配科目与考试局的专业导师。',
+      'how4-h':'保持同步','how4-p':'共享的WhatsApp群组让家长、学生与导师每周保持同步。',
+      'pricing-eyebrow':'价格','pricing-title':'简单分级，按科目定制',
+      'price1-h':'小学与中学','per-hour':'每小时',
+      'price1-li1':'所有核心科目','price1-li2':'灵活的每周排课','price1-li3':'每节课后提供进度笔记',
+      'get-quote':'获取报价',
+      'price2-li1':'匹配考试局的教材','price2-li2':'模拟试卷及书面反馈','price2-li3':'每月一次家长沟通电话',
+      'price3-h':'A-Level 与入学考试','price3-li2':'个人陈述辅导','price3-li3':'专科导师',
+      'price-note':'具体价格视科目、考试局及导师经验而定——预约咨询获取专属报价。',
+      'teachers-eyebrow':'导师','teachers-title':'精选专业导师团队，而非中介平台',
+      'tutor-name':'导师姓名',
+      'teacher1-p':'示例资历——如"十年 A-Level 数学教学经验，Edexcel 与 AQA 考试局。"',
+      'teacher2-p':'示例资历——如"前中学理科教师，GCSE 阅卷官。"',
+      'teacher3-role':'申请与个人陈述',
+      'teacher3-p':'示例资历——如"牛津剑桥毕业生，专攻 TMUA 与个人陈述。"',
+      'reviews-eyebrow':'评价','reviews-title':'家长评价——示例内容，正式上线前请替换为真实评价',
+      'quote1':'"终于每节课后都能收到消息，清楚知道具体教了什么内容，不用再靠猜了。"',
+      'quote1-attr':'——学生家长，Year 11',
+      'quote2':'"两天内就为我女儿匹配了对应考试局的导师，模拟反馈比学校还要详细。"',
+      'quote2-attr':'——学生家长，A-Level',
+      'quote3':'"一个学期内，我儿子对数学的信心明显提升。课程安排有条理，导师对每周计划都很清楚。"',
+      'quote3-attr':'——学生家长，GCSE',
+      'contact-eyebrow':'联系我们','contact-title':'预约免费咨询',
+      'label-parent':'家长姓名','label-year':'孩子的年级','option-entrance':'入学考试与申请',
+      'label-subject':'科目','placeholder-subject':'例如：数学、化学、雅思',
+      'label-message':'还有什么需要告诉我们的吗？','placeholder-message':'目标、时间安排、考试局……',
+      'submit-btn':'提交咨询请求',
+      'contact-side-h':'更喜欢直接留言？','contact-side-p':'我们会在24小时内回复，WhatsApp通常最快。',
+      'email-btn':'邮件联系 lsquared.tutors@gmail.com',
+      'fine-print':'© 2026 L² Tutoring。网站草稿——名称、价格及内容均为占位，正式上线前请替换。'
+    }
+  };
+
+  let currentLang = 'en';
+  const langToggle = document.getElementById('langToggle');
+
+  function applyLang(lang){
+    const dict = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+    });
+    document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+    langToggle.textContent = (lang === 'zh') ? 'EN' : '中文';
+  }
+
+  langToggle.addEventListener('click', () => {
+    currentLang = (currentLang === 'en') ? 'zh' : 'en';
+    applyLang(currentLang);
+  });
+</script>
+
+</body>
+</html>
